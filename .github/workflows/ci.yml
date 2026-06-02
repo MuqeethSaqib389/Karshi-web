@@ -19,10 +19,14 @@ jobs:
         with:
           node-version: 18
 
-- name: Install dependencies
-  working-directory: ./apps/web
-  run: npm install
+      - name: Install dependencies
+        working-directory: ./apps/web
+        run: npm ci
 
-- name: Build project
-  working-directory: ./apps/web
-  run: npm run build
+      - name: Run security audit
+        working-directory: ./apps/web
+        run: npm audit --production
+
+      - name: Build project
+        working-directory: ./apps/web
+        run: npm run build
